@@ -40,22 +40,18 @@ public class BankAccount {
             throw new Exception("Account Number can not be generated");
         }
 
-        StringBuilder accountNumber = new StringBuilder();
-        Random random = new Random();
-
-        for (int i = 0; i < digits; i++) {
-            int digit;
-            if (i == digits - 1) {
-                digit = sum;
-            } else {
-                digit = random.nextInt(Math.min(9, sum) + 1);
-            }
-
-            accountNumber.append(digit);
-            sum -= digit;
+        String accountNumber = "";
+        while (sum > 9) {
+            accountNumber += "9";
+            sum -= 9;
         }
 
-        return accountNumber.toString();
+        accountNumber += sum + "";
+        while (accountNumber.length() > digits) {
+            accountNumber += "0";
+        }
+
+        return accountNumber;
     }
 
     // make a deposit
