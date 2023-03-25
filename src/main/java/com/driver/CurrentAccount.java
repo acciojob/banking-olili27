@@ -15,11 +15,89 @@ public class CurrentAccount extends BankAccount{
     }
 
     public void validateLicenseId() throws Exception {
-        // A trade license Id is said to be valid if no two consecutive characters are same
-        // If the license Id is valid, do nothing
-        // If the characters of the license Id can be rearranged to create any valid license Id
-        // If it is not possible, throw "Valid License can not be generated" Exception
+       if (!isNumberValid(tradeLicenseId)) {
 
+           String reArrangedId = reArrangeString(tradeLicenseId);
+           if (reArrangedId.equals("")) {
+               throw new Exception("Valid License can not be generated");
+           }
+           else {
+                tradeLicenseId = reArrangedId;
+           }
+       }
+    }
+
+    public String reArrangeString(String str) {
+        int n = str.length();
+
+        int [] count = new int[26];
+
+        for (char ch: str.toCharArray()) {
+            count[ch - 'A']++;
+        }
+
+        char mostFreqChar = findMostFreq(count);
+        int highestFreq = count[mostFreqChar - 'A'];
+
+        if (n % 2 == 0) {
+            if (highestFreq > (n / 2) + 1) {
+                return  "";
+            }
+        } else {
+            if (highestFreq > (n / 2) + 2) {
+                return  "";
+            }
+        }
+
+        char [] ans = new char[n];
+
+        int index;
+
+        // fill the most frequent character
+        for (index = 0; index < n; index += 2) {
+            if (count[mostFreqChar - 'A'] > 0) {
+                ans[index] = mostFreqChar;
+                count[mostFreqChar - 'A']--;
+            }
+            else break;
+        }
+
+        // fill the remaining characters
+        for (int i = 0; i < 26; i++) {
+            char ch = (char) ('A' + i);
+
+            while (count[ch - 'A'] > 0) {
+                if (index >= n) {
+                    index = 1;
+                }
+
+                ans[index] = ch;
+                index += 2;
+                count[ch - 'A']--;
+            }
+        }
+
+        return ans.toString();
+    }
+
+    public char findMostFreq(int [] arr) {
+        int max = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) max = i;
+        }
+
+        return (char) ('A' + max);
+    }
+
+    public boolean isNumberValid(String licenseId) {
+        for (int i =0; i < licenseId.length() - 1; i++) {
+            if (licenseId.charAt(i) == licenseId.charAt(i + 1)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
