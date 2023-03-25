@@ -1,5 +1,7 @@
 package com.driver;
 
+import java.util.Arrays;
+
 public class CurrentAccount extends BankAccount{
     String tradeLicenseId; //consists of Uppercase English characters only
 
@@ -81,7 +83,7 @@ public class CurrentAccount extends BankAccount{
             }
         }
 
-        return ans.toString();
+        return Arrays.toString(ans);
     }
 
     public char findMostFreq(int [] arr) {
