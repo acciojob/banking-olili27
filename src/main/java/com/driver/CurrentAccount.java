@@ -10,7 +10,7 @@ public class CurrentAccount extends BankAccount{
 
         this.tradeLicenseId = tradeLicenseId;
 
-        if (balance < 5000) throw new Exception("Insufficient Balance");
+//        if (balance < 5000) throw new Exception("Insufficient Balance");
 
     }
 
