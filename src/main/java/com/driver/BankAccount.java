@@ -20,7 +20,7 @@ public class BankAccount {
         return minBalance;
     }
 
-    public String getNamee() {
+    public String getName() {
         return name;
     }
 
