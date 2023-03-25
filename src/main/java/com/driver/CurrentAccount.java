@@ -14,6 +14,10 @@ public class CurrentAccount extends BankAccount{
 
     }
 
+   public String getTradeLicenseId() {
+        return  tradeLicenseId;
+   }
+
     public void validateLicenseId() throws Exception {
        if (!isNumberValid(tradeLicenseId)) {
 
